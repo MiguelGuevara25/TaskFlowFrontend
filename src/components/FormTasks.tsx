@@ -28,7 +28,7 @@ const FormTasks = () => {
     const newTask = { ...data, state: "Pendiente" };
     await addTask(newTask);
     reset();
-    router.push("/users");
+    router.push("/tasks");
   };
 
   useEffect(() => {
