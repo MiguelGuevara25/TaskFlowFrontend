@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         cz-shortcut-listen="true"
       >
-        <main className="flex min-h-screen">
+        <main className="flex min-h-screen dark:bg-gray-800">
           <Aside />
           <div className="w-full">{children}</div>
         </main>
