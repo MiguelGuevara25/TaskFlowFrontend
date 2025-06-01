@@ -1,5 +1,5 @@
-import { TaskFormData } from "@/app/tasks/add/page";
 import { UseFormRegister } from "react-hook-form";
+import { TaskFormData } from "../types";
 
 interface SelectProps {
   label: string;

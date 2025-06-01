@@ -10,7 +10,7 @@ interface InputProps<T extends FieldValues> {
   id: Path<T>;
   register: UseFormRegister<T>;
   typeInput?: string;
-  validations?: RegisterOptions;
+  validations?: RegisterOptions<T, Path<T>>;
 }
 
 const Input = <T extends FieldValues>({
@@ -20,7 +20,7 @@ const Input = <T extends FieldValues>({
   typeInput = "text",
   validations,
 }: InputProps<T>) => {
-  const defaultValidations: RegisterOptions = {
+  const defaultValidations = {
     required: `El campo "${label.toLowerCase()}" es obligatorio`,
     ...validations,
   };
