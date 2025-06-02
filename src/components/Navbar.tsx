@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import ArrowDown from "@/assets/svgs/ArrowDown";
 import MenuBurger from "@/assets/svgs/MenuBurger";
 import CloseMenu from "@/assets/svgs/CloseMenu";
+import Link from "next/link";
 
 const Navbar = () => {
   const [openNavbar, setOpenNavbar] = useState(false);
@@ -26,6 +26,12 @@ const Navbar = () => {
     }
   };
 
+  const handleOpenNavbar = () => {
+    setOpenNavbar(!openNavbar);
+    setShowTasksDropdown(false);
+    setShowUsersDropdown(false);
+  };
+
   return (
     <div className="lg:hidden flex flex-col lg:items-center lg:justify-between lg:flex-row text-gray-700 bg-white border-b border-gray-500 dark:text-gray-200 dark:bg-gray-800">
       <div className="flex flex-row items-center justify-between px-8 py-4">
@@ -37,7 +43,7 @@ const Navbar = () => {
 
         <button
           className="lg:hidden rounded-lg focus:outline-none focus:shadow-outline"
-          onClick={() => setOpenNavbar(!openNavbar)}
+          onClick={handleOpenNavbar}
         >
           {openNavbar ? <CloseMenu /> : <MenuBurger />}
         </button>
@@ -76,12 +82,14 @@ const Navbar = () => {
                 <Link
                   href="/tasks"
                   className="block px-10 py-2 rounded-lg hover:bg-gray-600 dark:text-gray-200"
+                  onClick={() => setOpenNavbar(false)}
                 >
                   Ver Tareas
                 </Link>
                 <Link
                   href="/tasks/add"
                   className="block px-10 py-2 rounded-lg hover:bg-gray-600 dark:text-gray-200"
+                  onClick={() => setOpenNavbar(false)}
                 >
                   Añadir Tareas
                 </Link>
@@ -111,12 +119,14 @@ const Navbar = () => {
                 <Link
                   href="/users"
                   className="block px-10 py-2 rounded-lg hover:bg-gray-600 dark:text-gray-200"
+                  onClick={() => setOpenNavbar(false)}
                 >
                   Ver Usuarios
                 </Link>
                 <Link
                   href="/users/add"
                   className="block px-10 py-2 rounded-lg hover:bg-gray-600 dark:text-gray-200"
+                  onClick={() => setOpenNavbar(false)}
                 >
                   Añadir Usuarios
                 </Link>

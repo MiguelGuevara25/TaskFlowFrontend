@@ -27,7 +27,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
         title: formData.title,
         description: formData.description,
         status: formData.status,
-        deadline: formData.date_deadline,
+        deadline: formData.deadline,
         user: { id: Number(formData.userId) },
       });
     } catch (error) {

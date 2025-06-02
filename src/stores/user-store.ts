@@ -26,6 +26,7 @@ export const useUserStore = create<UserStore>((set) => ({
     await axios.post(`${API_URL}/users`, {
       username: formData.username,
       email: formData.email,
+      active: true,
     });
   },
 
