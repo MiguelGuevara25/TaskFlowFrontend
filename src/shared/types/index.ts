@@ -20,7 +20,7 @@ export interface Task {
 export interface TaskFormData {
   title: string;
   description: string;
-  state: string;
+  state: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   date_deadline: string;
   date_created: string;
   userId: number;

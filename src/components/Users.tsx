@@ -5,11 +5,7 @@ import { useUserStore } from "@/stores/user-store";
 import { Fragment } from "react";
 import { Toaster } from "sonner";
 
-interface UsersProps {
-  isLoading: boolean;
-}
-
-const Users = ({ isLoading }: UsersProps) => {
+const Users = ({ isLoading }: boolean) => {
   const { users, deleteUser } = useUserStore();
 
   return (
@@ -52,7 +48,6 @@ const Users = ({ isLoading }: UsersProps) => {
                 <p>Rol</p>
               </th>
               <th>
-                <p></p>
               </th>
             </tr>
           </thead>
@@ -72,7 +67,7 @@ const Users = ({ isLoading }: UsersProps) => {
                   </td>
 
                   <td>
-                    <p className="text-slate-500">{user.createdAt}</p>
+                    <p className="text-slate-500">{user.creationDate}</p>
                   </td>
 
                   <td>

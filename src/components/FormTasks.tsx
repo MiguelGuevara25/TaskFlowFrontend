@@ -22,10 +22,10 @@ const FormTasks = () => {
   } = useForm<TaskFormData>();
 
   const router = useRouter();
-  
+  const today = new Date().toISOString().split("T")[0];
 
   const onSubmit = async (data: TaskFormData) => {
-    const newTask = { ...data, state: "Pendiente" };
+    const newTask = { ...data, state: "PENDING" };
     await addTask(newTask);
     reset();
     router.push("/tasks");
@@ -47,17 +47,20 @@ const FormTasks = () => {
 
       <div className="flex gap-10">
         <div className="flex flex-col gap-0.5 flex-1">
-          <Input
-            label="Fecha Creación"
+          <label htmlFor="date_created">Fecha Creación:</label>
+          <input
+            className="border disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400 rounded-md p-2 border-gray-400 outline-none"
             id="date_created"
-            register={register}
-            typeInput="date"
+            type="date"
+            placeholder="Fecha Creación"
+            disabled
+            defaultValue={today}
           />
         </div>
 
         <div className="flex flex-col gap-0.5 flex-1">
           <Input
-            label="Fecha Limite"
+            label="Fecha Límite"
             id="date_deadline"
             register={register}
             typeInput="date"

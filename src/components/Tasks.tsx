@@ -65,89 +65,106 @@ const Tasks = ({ isLoading }: TasksProps) => {
           </thead>
 
           <tbody>
-            {tasks.map((task) => (
-              <Fragment key={task.id}>
-                <tr className="[&>td]:p-4 border-b last:border-none border-slate-200">
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="flex flex-col">
-                        <p className="font-semibold text-slate-700">
-                          {task.users.username}
-                        </p>
-                        <p className="text-slate-500">{task.users.email}</p>
+            {tasks.map((task) => {
+              const traducirEstado = (status: string) => {
+                switch (status) {
+                  case "PENDING":
+                    return "Pendiente";
+                  case "IN_PROGRESS":
+                    return "En Progreso";
+                  case "COMPLETED":
+                    return "Completado";
+                  case "CANCELLED":
+                    return "Cancelado";
+                  default:
+                    return status;
+                }
+              };
+
+              return (
+                <Fragment key={task.id}>
+                  <tr className="[&>td]:p-4 border-b last:border-none border-slate-200">
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="flex flex-col">
+                          <p className="font-semibold text-slate-700">
+                            {task.user.username}
+                          </p>
+                          <p className="text-slate-500">{task.user.email}</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td>
-                    <p className="text-slate-500">{task.title}</p>
-                  </td>
+                    <td>
+                      <p className="text-slate-500">{task.title}</p>
+                    </td>
 
-                  <td>
-                    <div className="w-max">
-                      <div
-                        className={`px-3 py-1 font-bold ${
-                          task.state === "Pendiente"
-                            ? "text-yellow-900 bg-yellow-500/20"
-                            : task.state === "En Progreso"
-                            ? "text-blue-900 bg-blue-500/20"
-                            : task.state === "Completado"
-                            ? "text-green-900 bg-green-500/20"
-                            : task.state === "Cancelado" &&
-                              "text-red-900 bg-red-500/20"
-                        } uppercase rounded-md text-sm`}
+                    <td>
+                      <div className="w-max">
+                        <div
+                          className={`px-3 py-1 font-bold ${
+                            task.status === "PENDING"
+                              ? "text-yellow-900 bg-yellow-500/20"
+                              : task.status === "IN_PROGRESS"
+                              ? "text-blue-900 bg-blue-500/20"
+                              : task.status === "COMPLETED"
+                              ? "text-green-900 bg-green-500/20"
+                              : task.status === "CANCELLED" &&
+                                "text-red-900 bg-red-500/20"
+                          } uppercase rounded-md text-sm`}
+                        >
+                          <span>{traducirEstado(task.status)}</span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <p className="text-slate-500">{task.dateCreated}</p>
+                    </td>
+
+                    <td>
+                      <p className="text-slate-500">{task.deadline}</p>
+                    </td>
+
+                    <td>
+                      <p className="text-slate-500 w-72 break-words">
+                        {task.description}
+                      </p>
+                    </td>
+
+                    <td className="space-x-5">
+                      <button
+                        className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
+                        onClick={() => deleteTask(task.id)}
                       >
-                        <span>{task.state}</span>
-                      </div>
-                    </div>
-                  </td>
+                        <DeleteIcon />
+                      </button>
 
-                  <td>
-                    <p className="text-slate-500">{task.date_created}</p>
-                  </td>
+                      <button
+                        className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
+                        onClick={() => deleteTask(task.id)}
+                      >
+                        <EditIcon />
+                      </button>
 
-                  <td>
-                    <p className="text-slate-500">{task.date_deadline}</p>
-                  </td>
+                      <button
+                        className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
+                        onClick={() => deleteTask(task.id)}
+                      >
+                        <SearchIcon />
+                      </button>
 
-                  <td>
-                    <p className="text-slate-500 w-72 break-words">
-                      {task.description}
-                    </p>
-                  </td>
-
-                  <td className="space-x-5">
-                    <button
-                      className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
-                      onClick={() => deleteTask(task.id)}
-                    >
-                      <DeleteIcon />
-                    </button>
-
-                    <button
-                      className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
-                      onClick={() => deleteTask(task.id)}
-                    >
-                      <EditIcon />
-                    </button>
-
-                    <button
-                      className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
-                      onClick={() => deleteTask(task.id)}
-                    >
-                      <SearchIcon />
-                    </button>
-
-                    <button
-                      className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
-                      onClick={() => deleteTask(task.id)}
-                    >
-                      <InProgress />
-                    </button>
-                  </td>
-                </tr>
-              </Fragment>
-            ))}
+                      <button
+                        className="rounded-md cursor-pointer hover:scale-125 transition-all duration-200"
+                        onClick={() => deleteTask(task.id)}
+                      >
+                        <InProgress />
+                      </button>
+                    </td>
+                  </tr>
+                </Fragment>
+              );
+            })}
           </tbody>
         </table>
       ) : (

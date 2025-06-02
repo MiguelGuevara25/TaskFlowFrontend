@@ -30,6 +30,7 @@ const FormUsers = () => {
       toast.error("Error al agregar el usuario");
     }
   };
+  
   return (
     <form
       className="flex flex-col gap-5 bg-gray-100 p-10 rounded-md w-2/5"

@@ -22,14 +22,19 @@ export const useTaskStore = create<TaskStore>((set) => ({
   },
 
   addTask: async (formData: TaskFormData) => {
-    await axios.post(`${API_URL}/tasks`, {
-      title: formData.title,
-      description: formData.description,
-      state: formData.state,
-      date_deadline: formData.date_deadline,
-      date_created: formData.date_created,
-      users: { id: Number(formData.userId) },
-    });
+    try {
+      console.log(formData);
+
+      await axios.post(`${API_URL}/tasks`, {
+        title: formData.title,
+        description: formData.description,
+        status: formData.state,
+        deadline: formData.date_deadline,
+        user: { id: Number(formData.userId) },
+      });
+    } catch (error) {
+      console.error("Error al agregar la tarea:", error);
+    }
   },
 
   deleteTask: async (id: number) => {
