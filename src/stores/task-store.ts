@@ -23,12 +23,10 @@ export const useTaskStore = create<TaskStore>((set) => ({
 
   addTask: async (formData: TaskFormData) => {
     try {
-      console.log(formData);
-
       await axios.post(`${API_URL}/tasks`, {
         title: formData.title,
         description: formData.description,
-        status: formData.state,
+        status: formData.status,
         deadline: formData.date_deadline,
         user: { id: Number(formData.userId) },
       });

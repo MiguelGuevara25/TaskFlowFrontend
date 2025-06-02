@@ -11,16 +11,16 @@ export interface Task {
   id: number;
   title: string;
   description: string;
-  state: string;
-  date_deadline: string;
-  date_created: string;
-  users: User;
+  status: string;
+  deadline: string;
+  dateCreated: string;
+  user: User;
 }
 
 export interface TaskFormData {
   title: string;
   description: string;
-  state: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
+  status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   date_deadline: string;
   date_created: string;
   userId: number;
