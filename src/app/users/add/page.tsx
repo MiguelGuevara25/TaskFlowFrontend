@@ -2,8 +2,8 @@ import FormUsers from "@/components/FormUsers";
 
 const AddUserPage = () => {
   return (
-    <section className="flex items-center justify-center h-screen flex-col gap-5">
-      <h2 className="text-2xl font-bold dark:text-white">Añadir Usuario</h2>
+    <section className="min-h-auto gap-5 w-4/5 lg:w-2/5 mx-auto pt-20 space-y-5">
+      <h2 className="text-2xl font-bold dark:text-white text-center">Añadir Usuario</h2>
 
       <FormUsers />
     </section>

@@ -9,6 +9,7 @@ import Select from "@/shared/ui/Select";
 import Button from "@/shared/ui/Button";
 import Input from "@/shared/ui/Input";
 import Error from "@/components/Error";
+import { today } from "@/shared/utils";
 
 const FormTasks = () => {
   const { addTask } = useTaskStore();
@@ -22,7 +23,6 @@ const FormTasks = () => {
   } = useForm<TaskFormData>();
 
   const router = useRouter();
-  const today = new Date().toISOString().split("T")[0];
 
   const onSubmit = async (data: TaskFormData) => {
     const newTask = { ...data, state: "PENDING" };
@@ -37,7 +37,7 @@ const FormTasks = () => {
 
   return (
     <form
-      className="flex flex-col gap-5 bg-gray-100 p-10 rounded-md w-2/5"
+      className="flex flex-col gap-5 bg-gray-100 p-10 rounded-md"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-0.5">

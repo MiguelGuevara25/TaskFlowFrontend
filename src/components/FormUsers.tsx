@@ -24,45 +24,59 @@ const FormUsers = () => {
       await addUsers(data);
       reset();
       router.push("/users");
-      toast.success("Usuario agregado con éxito");
+
+      const promise = () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ name: "Usuario agregado con éxito" }), 500)
+        );
+
+      toast.promise(promise, {
+        loading: "Cargando...",
+        success: (data) => {
+          return `${data.name}`;
+        },
+      });
+      
     } catch (error) {
       console.error(error);
       toast.error("Error al agregar el usuario");
     }
   };
-  
+
   return (
-    <form
-      className="flex flex-col gap-5 bg-gray-100 p-10 rounded-md w-2/5"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <>
       <Toaster position="top-center" richColors />
-      <div className="flex flex-col gap-0.5">
-        <Input<UserFormData>
-          label="Usuario"
-          id="username"
-          register={register}
-        />
-        {errors.username && <Error>{errors.username.message}</Error>}
-      </div>
+      <form
+        className="flex flex-col gap-5 bg-gray-100 p-10 rounded-md"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="flex flex-col gap-0.5">
+          <Input<UserFormData>
+            label="Usuario"
+            id="username"
+            register={register}
+          />
+          {errors.username && <Error>{errors.username.message}</Error>}
+        </div>
 
-      <div className="flex flex-col gap-0.5">
-        <Input<UserFormData>
-          label="Email"
-          id="email"
-          register={register}
-          validations={{
-            pattern: {
-              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Ingresa un correo electrónico válido",
-            },
-          }}
-        />
-        {errors.email && <Error>{errors.email.message}</Error>}
-      </div>
+        <div className="flex flex-col gap-0.5">
+          <Input<UserFormData>
+            label="Email"
+            id="email"
+            register={register}
+            validations={{
+              pattern: {
+                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "Ingresa un correo electrónico válido",
+              },
+            }}
+          />
+          {errors.email && <Error>{errors.email.message}</Error>}
+        </div>
 
-      <Button text="Agregar" typeButton="submit" />
-    </form>
+        <Button text="Agregar" typeButton="submit" />
+      </form>
+    </>
   );
 };
 
