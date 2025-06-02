@@ -5,7 +5,6 @@ import { TaskFormData } from "@/shared/types";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import Select from "@/shared/ui/Select";
 import Button from "@/shared/ui/Button";
 import Input from "@/shared/ui/Input";
 import Error from "@/components/Error";
@@ -25,7 +24,7 @@ const FormTasks = () => {
   const router = useRouter();
 
   const onSubmit = async (data: TaskFormData) => {
-    const newTask = { ...data, state: "PENDING" };
+    const newTask = { ...data, status: "PENDING" as const };
     await addTask(newTask);
     reset();
     router.push("/tasks");
@@ -47,10 +46,10 @@ const FormTasks = () => {
 
       <div className="flex gap-10">
         <div className="flex flex-col gap-0.5 flex-1">
-          <label htmlFor="date_created">Fecha Creación:</label>
+          <label htmlFor="dateCreated">Fecha Creación:</label>
           <input
             className="border disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400 rounded-md p-2 border-gray-400 outline-none"
-            id="date_created"
+            id="dateCreated"
             type="date"
             placeholder="Fecha Creación"
             disabled
@@ -59,25 +58,44 @@ const FormTasks = () => {
         </div>
 
         <div className="flex flex-col gap-0.5 flex-1">
-          <Input
-            label="Fecha Límite"
-            id="date_deadline"
-            register={register}
-            typeInput="date"
+          <label htmlFor="deadline">Fecha Límite:</label>
+          <input
+            className="border disabled:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400 rounded-md p-2 border-gray-400 outline-none"
+            id="deadline"
+            type="date"
+            placeholder="Fecha Límite"
+            {...register("deadline", {
+              required: `El campo "fecha límite" es obligatorio`,
+              validate: (value) => {
+                if (value < today) {
+                  return "La fecha límite no puede ser anterior a la fecha actual";
+                }
+                return true;
+              },
+            })}
           />
+          {errors.deadline && <Error>{errors.deadline.message}</Error>}
         </div>
       </div>
 
       <div className="flex flex-col gap-0.5">
-        <Select
-          label="Encargado"
+        <label htmlFor="userId">Encargado:</label>
+        <select
+          className="border rounded-md p-2 border-gray-400 outline-none"
           id="userId"
-          register={register}
-          options={users.map((user) => ({
-            value: user.id,
-            label: user.username,
-          }))}
-        />
+          {...register("userId", {
+            required: `Selecciona un "Encargado", es obligatorio`,
+          })}
+        >
+          <option hidden value="">
+            Seleccione un Encargado
+          </option>
+          {users.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.username}
+            </option>
+          ))}
+        </select>
         {errors.userId && <Error>{errors.userId.message}</Error>}
       </div>
 

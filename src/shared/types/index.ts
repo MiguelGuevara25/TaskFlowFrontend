@@ -4,7 +4,8 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  createdAt: string;
+  creationDate: string;
+  active: boolean;
 }
 
 export interface Task {
@@ -21,8 +22,8 @@ export interface TaskFormData {
   title: string;
   description: string;
   status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
-  date_deadline: string;
-  date_created: string;
+  deadline: string;
+  dateCreated: string;
   userId: number;
 }
 

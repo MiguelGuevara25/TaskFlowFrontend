@@ -5,7 +5,7 @@ import { useUserStore } from "@/stores/user-store";
 import { Fragment } from "react";
 import { Toaster } from "sonner";
 
-const Users = ({ isLoading }: boolean) => {
+const Users = ({ isLoading }: { isLoading: boolean }) => {
   const { users, deleteUser } = useUserStore();
 
   return (
@@ -48,7 +48,9 @@ const Users = ({ isLoading }: boolean) => {
                 <p>Rol</p>
               </th>
               <th>
+                <p>Estado</p>
               </th>
+              <th></th>
             </tr>
           </thead>
 
@@ -72,6 +74,19 @@ const Users = ({ isLoading }: boolean) => {
 
                   <td>
                     <p className="text-slate-500">User</p>
+                  </td>
+
+                  <td>
+                    <div className="flex gap-2 items-center">
+                      <div
+                        className={`rounded-full size-2 ${
+                          user.active ? "bg-green-500" : "bg-red-500"
+                        }`}
+                      ></div>
+                      <p className="text-slate-500">
+                        {user.active ? "Activo" : "Inactivo"}
+                      </p>
+                    </div>
                   </td>
 
                   <td className="space-x-5">
