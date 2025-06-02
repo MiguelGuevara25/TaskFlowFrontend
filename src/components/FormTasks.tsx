@@ -13,6 +13,7 @@ import { today } from "@/shared/utils";
 const FormTasks = () => {
   const { addTask } = useTaskStore();
   const { users, getUsers } = useUserStore();
+  const router = useRouter();
 
   const {
     register,
@@ -20,8 +21,6 @@ const FormTasks = () => {
     reset,
     formState: { errors },
   } = useForm<TaskFormData>();
-
-  const router = useRouter();
 
   const onSubmit = async (data: TaskFormData) => {
     const newTask = { ...data, status: "PENDING" as const };
