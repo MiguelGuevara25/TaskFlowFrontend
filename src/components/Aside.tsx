@@ -8,7 +8,7 @@ const Aside = () => {
   const [showUsersDropdown, setShowUsersDropdown] = useState(false);
 
   return (
-    <aside className="py-5 px-10 flex flex-col gap-8 w-[15%] border-r border-gray-500 dark:bg-gray-800">
+    <aside className="py-5 px-10 lg:flex flex-col gap-8 w-max border-r border-gray-500 dark:bg-gray-800 hidden">
       <div>
         <h1 className="text-3xl dark:text-white">
           <Link href="/">Task<span className="font-bold text-indigo-600">Flow</span></Link>

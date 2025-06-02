@@ -1,8 +1,4 @@
-interface ArrowDownProps {
-  className?: string;
-}
-
-const ArrowDown = ({ className }: ArrowDownProps) => {
+const ArrowDown = ({ className }: { className: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
