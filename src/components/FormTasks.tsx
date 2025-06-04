@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Button from "@/shared/ui/Button";
-import Input from "@/shared/ui/Input";
 import Error from "@/components/Error";
 import { today } from "@/shared/utils";
 
@@ -39,7 +38,16 @@ const FormTasks = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-0.5">
-        <Input label="Título" id="title" register={register} />
+        <label htmlFor="title">Título:</label>
+        <input
+          className="border rounded-md p-2 border-gray-400 outline-none"
+          id="title"
+          type="text"
+          placeholder="Título"
+          {...register("title", {
+            required: `El campo "título" es obligatorio`,
+          })}
+        />
         {errors.title && <Error>{errors.title.message}</Error>}
       </div>
 

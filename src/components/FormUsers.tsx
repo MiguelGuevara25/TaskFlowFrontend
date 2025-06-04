@@ -4,7 +4,6 @@ import { useUserStore } from "@/stores/user-store";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
-import Input from "@/shared/ui/Input";
 import Error from "@/components/Error";
 import Button from "@/shared/ui/Button";
 
@@ -24,19 +23,7 @@ const FormUsers = () => {
       await addUsers(data);
       reset();
       router.push("/users");
-
-      const promise = () =>
-        new Promise((resolve) =>
-          setTimeout(() => resolve({ name: "Usuario agregado con éxito" }), 500)
-        );
-
-      toast.promise(promise, {
-        loading: "Cargando...",
-        success: (data) => {
-          return `${data.name}`;
-        },
-      });
-      
+      toast.success("Usuario agregado correctamente");
     } catch (error) {
       console.error(error);
       toast.error("Error al agregar el usuario");
@@ -51,25 +38,33 @@ const FormUsers = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-0.5">
-          <Input<UserFormData>
-            label="Usuario"
+          <label htmlFor="username">Usuario:</label>
+          <input
+            className="border rounded-md p-2 border-gray-400 outline-none"
             id="username"
-            register={register}
+            type="text"
+            placeholder="Usuario"
+            {...register("username", {
+              required: `El campo "usuario" es obligatorio`,
+            })}
           />
           {errors.username && <Error>{errors.username.message}</Error>}
         </div>
 
         <div className="flex flex-col gap-0.5">
-          <Input<UserFormData>
-            label="Email"
+          <label htmlFor="email">Email:</label>
+          <input
+            className="border rounded-md p-2 border-gray-400 outline-none"
             id="email"
-            register={register}
-            validations={{
+            type="email"
+            placeholder="Email"
+            {...register("email", {
+              required: `El campo "email" es obligatorio`,
               pattern: {
                 value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                 message: "Ingresa un correo electrónico válido",
               },
-            }}
+            })}
           />
           {errors.email && <Error>{errors.email.message}</Error>}
         </div>
